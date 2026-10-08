@@ -1,0 +1,9 @@
+.DS_Store
+__MACOSX/
+dist/
+work/
+node_modules/
+__pycache__/
+*.pyc
+.env
+.env.*

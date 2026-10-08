@@ -1,0 +1,11 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>网页转换助手</title><link rel="stylesheet" href="style.css"></head>
+<body class="popup"><header class="brand"><img src="icons/icon-48.png" width="36" height="36" alt=""><div><h1>网页转换助手</h1><p>加载网页，保存所需内容。</p></div><span class="version">V2.3</span></header>
+<p id="page-name" class="page-name" title="当前网页">正在读取当前网页…</p>
+<section class="load-section" aria-label="加载网页"><button id="load" class="primary"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m-4-4 4 4 4-4M5 16v4h14v-4"/></svg><span id="load-label">加载全部网页</span></button><div id="load-progress" hidden><progress id="progress" aria-label="网页加载进度"></progress></div><p id="status" role="status" aria-live="polite">自动滚动加载正文和图片，完成后回到原位置。</p></section>
+<section class="formats" aria-label="保存格式"><h2>保存为</h2><div class="format-list">
+<button id="word" class="format"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 3H5v18h14V8zM14 3v5h5M8 12l1 5 3-4 3 4 1-5"/></svg><span><strong>Word 文档</strong><small>正文、图片与文字格式</small></span><svg class="chevron" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg></button>
+<button id="article" class="format"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 3h16v18H4zM8 8h8M8 12h8M8 16h5"/></svg><span><strong>正文 HTML</strong><small>保留文章排版与配图</small></span><svg class="chevron" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg></button>
+<button id="html" class="format"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 4h18v16H3zM3 9h18M6 6.5h.1M9 6.5h.1M7 13h6M7 16h6M16 12v5"/></svg><span><strong>完整 HTML</strong><small>保存整个网页的静态外观</small></span><svg class="chevron" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg></button>
+<button id="pdf" class="format"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 3H5v18h14V8zM14 3v5h5M8 12h8M8 16h6"/></svg><span><strong>网页 PDF</strong><small>连续长页，文字可搜索</small></span><svg class="chevron" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg></button>
+</div></section><footer>折叠内容请先展开。文件在本机生成。</footer><script src="popup.js"></script></body></html>

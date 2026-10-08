@@ -1,0 +1,347 @@
+{
+  "docx_version": "9.6.1",
+  "npm_tarball": "https://registry.npmjs.org/docx/-/docx-9.6.1.tgz",
+  "npm_integrity": "sha512-ZJja9/KBUuFC109sCMzovoq2GR2wCG/AuxivjA+OHj/q0TEgJIm3S7yrlUxIy3B+bV8YDj/BiHfWyrRFmyWpDQ==",
+  "upstream_git_commit": "c758aafe42547531bb3248d267d614f84de455f1",
+  "supplied_bundle_sha256": "ecef72931c98461fc327aa6e95867820aced5db4c3d971ac5ad38ccda21dd360",
+  "match": "byte-for-byte npm package/dist/index.iife.js",
+  "license_references": [
+    {
+      "package": "available-typed-arrays",
+      "version": "1.0.7",
+      "license": "MIT",
+      "tarball_sha256": "8b140e0fa3fede3d81d1dffcc400c9755d7388e8a4add228487f5e20c9cf7863"
+    },
+    {
+      "package": "base64-js",
+      "version": "1.5.1",
+      "license": "MIT",
+      "tarball_sha256": "b1b7a945b52685269083425216d6597e33d97bf21699d656e92fdb3eb5210a85"
+    },
+    {
+      "package": "buffer",
+      "version": "5.7.1",
+      "license": "MIT",
+      "tarball_sha256": "98bfac55b7a37ade644f5eccbcf94a59269afd13e1f9af597e61fd06c057c0bc"
+    },
+    {
+      "package": "call-bind",
+      "version": "1.0.8",
+      "license": "MIT",
+      "tarball_sha256": "30e2bdf3ce00c012527ae4161df4145cbf4c797e9fa30e43fc7324b2e07b0523"
+    },
+    {
+      "package": "call-bind-apply-helpers",
+      "version": "1.0.2",
+      "license": "MIT",
+      "tarball_sha256": "073e9ff9dbabedf5c128020a677381e9f92c90188d118830b30a7656a7c37d2c"
+    },
+    {
+      "package": "call-bound",
+      "version": "1.0.4",
+      "license": "MIT",
+      "tarball_sha256": "32086f492fedf1b9b34811f2ee50ca2cca53da5c783f7cd5f939d3f1e86bbd32"
+    },
+    {
+      "package": "core-util-is",
+      "version": "1.0.3",
+      "license": "MIT",
+      "tarball_sha256": "4430fdc71f2cf3b5e297113b9a692da2d6cff96cf84da00f0ecef5e5a6e74d0c"
+    },
+    {
+      "package": "define-data-property",
+      "version": "1.1.4",
+      "license": "MIT",
+      "tarball_sha256": "16304ad73df1364ca8623c28a8969de01cd7189b4f9b05668fadb598f110e4d2"
+    },
+    {
+      "package": "define-properties",
+      "version": "1.2.1",
+      "license": "MIT",
+      "tarball_sha256": "5de7e3804fadee9d773cd494b695e6efedfee8837e751fd9b9b77c3e9c6b40f4"
+    },
+    {
+      "package": "dunder-proto",
+      "version": "1.0.1",
+      "license": "MIT",
+      "tarball_sha256": "ed1342228c82c10df9921c59d684df516a0cd6ed25b61e5f9d6330895326cfdb"
+    },
+    {
+      "package": "es-define-property",
+      "version": "1.0.1",
+      "license": "MIT",
+      "tarball_sha256": "5986b8b13121340a8b0d5c7d8f0f961aa80ef3a74515ca9cb7a78d86ed0385f7"
+    },
+    {
+      "package": "es-errors",
+      "version": "1.3.0",
+      "license": "MIT",
+      "tarball_sha256": "d14dd1c35b4bd3b8aca3219fd3627eb7f3eb49cf6b4c8a7ca58b91fd7a190993"
+    },
+    {
+      "package": "es-object-atoms",
+      "version": "1.1.1",
+      "license": "MIT",
+      "tarball_sha256": "3e18e4d757818aee7bf1921686c6c3e7f9676d17c5c6fec560567c6beee579ce"
+    },
+    {
+      "package": "events",
+      "version": "3.3.0",
+      "license": "MIT",
+      "tarball_sha256": "2c30dd630b58299bdfaac8688f763c6f312d29779c500b1e3701a1d4fb3b534b"
+    },
+    {
+      "package": "for-each",
+      "version": "0.3.5",
+      "license": "MIT",
+      "tarball_sha256": "4bd2cfc8e674c93cf7abb3bd3d6fd8e388fa10324bec011223a8fa4f287185d1"
+    },
+    {
+      "package": "function-bind",
+      "version": "1.1.2",
+      "license": "MIT",
+      "tarball_sha256": "704402651b02a1454f17d445fc7dd716efc282d059407126d58ef30a47e807aa"
+    },
+    {
+      "package": "get-intrinsic",
+      "version": "1.3.0",
+      "license": "MIT",
+      "tarball_sha256": "662e27e54e00fe46fbb08f9f4aacb054e3695dbe72cc14b436613fbcfb780544"
+    },
+    {
+      "package": "get-proto",
+      "version": "1.0.1",
+      "license": "MIT",
+      "tarball_sha256": "eb2cc52afb1f1fd82c5fc2a58c2380f0f16fdcdb5631538f3c66887435d70681"
+    },
+    {
+      "package": "gopd",
+      "version": "1.2.0",
+      "license": "MIT",
+      "tarball_sha256": "d536d0de4dd285dc1468fbb7f39334a47ee0eec9c27f9b626a6e71466c9fda82"
+    },
+    {
+      "package": "has-property-descriptors",
+      "version": "1.0.2",
+      "license": "MIT",
+      "tarball_sha256": "0219bbd8f32e268eeb6efff55a2c6ff2d502098f49c583ff023b2d9d5a8bfa87"
+    },
+    {
+      "package": "has-symbols",
+      "version": "1.1.0",
+      "license": "MIT",
+      "tarball_sha256": "4460c7532f28b8df2ddc9a1ec17816d43c24d4b9591dc6c5936b82f7f86ae7c5"
+    },
+    {
+      "package": "has-tostringtag",
+      "version": "1.0.2",
+      "license": "MIT",
+      "tarball_sha256": "dc1c74e3f1179a6271f84747d72c89f258aa46ad3e6464fae0e41737a7f0ef7b"
+    },
+    {
+      "package": "hash.js",
+      "version": "1.1.7",
+      "license": "MIT",
+      "tarball_sha256": "8eadfe0cbd33052fedb65ed4bf9acfe4645eafaabf877d99e3b1d9d771668ca6"
+    },
+    {
+      "package": "hasown",
+      "version": "2.0.2",
+      "license": "MIT",
+      "tarball_sha256": "50cdc4d2cd11ae04b6ee29f328d09022244962e5dfab303c8fc223ff8dfa807d"
+    },
+    {
+      "package": "ieee754",
+      "version": "1.2.1",
+      "license": "BSD-3-Clause",
+      "tarball_sha256": "8ef14b9b397e339db89db97881fb714f49319d8f0eb1275901f45567b28f9dac"
+    },
+    {
+      "package": "immediate",
+      "version": "3.0.6",
+      "license": "MIT",
+      "tarball_sha256": "98c792f39650b00818c05dcc407902034dc4092f368596b37658d44f28739d11"
+    },
+    {
+      "package": "inherits",
+      "version": "2.0.4",
+      "license": "ISC",
+      "tarball_sha256": "d94dbc6c1bb3c5ac0fb12a73ade187108fc60de273a1b754f55044eb5e24afaf"
+    },
+    {
+      "package": "is-arguments",
+      "version": "1.2.0",
+      "license": "MIT",
+      "tarball_sha256": "476c29799ec4f51b694d576fc70a27631c8ffe00e4269b7608027e12c7b0e51c"
+    },
+    {
+      "package": "is-callable",
+      "version": "1.2.7",
+      "license": "MIT",
+      "tarball_sha256": "1b5c6e4e8ab142a6857fca2fb79d880ba64f2c4ad87907b583934d04b503c3a1"
+    },
+    {
+      "package": "is-generator-function",
+      "version": "1.0.10",
+      "license": "MIT",
+      "tarball_sha256": "7100ebf1ed50e34793ad1d1e0c9572dd84fca9d490beb0b5c431a6dd2fc90c47"
+    },
+    {
+      "package": "is-typed-array",
+      "version": "1.1.15",
+      "license": "MIT",
+      "tarball_sha256": "d1ef6229208ce395c816f88637e45b970f6d742d616d3c980fb0dbb679cb7690"
+    },
+    {
+      "package": "isarray",
+      "version": "1.0.0",
+      "license": "MIT",
+      "tarball_sha256": "e23c76f14f5222e07e39d89858b61e8e33f96956de9e0df3659cbdf8db950c87"
+    },
+    {
+      "package": "jszip",
+      "version": "3.10.1",
+      "license": "(MIT OR GPL-3.0-or-later)",
+      "tarball_sha256": "5117f4a2a645aeb307bf3b829c575ad58135cc97e75291e594532ab5b5b21b23"
+    },
+    {
+      "package": "lie",
+      "version": "3.3.0",
+      "license": "MIT",
+      "tarball_sha256": "2db8461cd4a10e2fc3588c8c55da34d33465ff81cc19c72416bbcaec7ee6a36e"
+    },
+    {
+      "package": "math-intrinsics",
+      "version": "1.1.0",
+      "license": "MIT",
+      "tarball_sha256": "b8c2c35575493dc086df88cfc468a9e2651b6617336480ab3f00fcf853f443a7"
+    },
+    {
+      "package": "minimalistic-assert",
+      "version": "1.0.1",
+      "license": "ISC",
+      "tarball_sha256": "f16522c947d6dbe3a99f5ff4296ccc253090b838959abdddc45fe81edb03f3a0"
+    },
+    {
+      "package": "nanoid",
+      "version": "5.1.6",
+      "license": "MIT",
+      "tarball_sha256": "f8e9087f4641db820502d55b2794c4a8077e6ea3e8b7a9fe92f2a18b957bc930"
+    },
+    {
+      "package": "object-inspect",
+      "version": "1.13.4",
+      "license": "MIT",
+      "tarball_sha256": "8324967a3afd8a45b0401e3554aebc1843f493bec46a89a7ce8cf072e62e90bf"
+    },
+    {
+      "package": "object-keys",
+      "version": "1.1.1",
+      "license": "MIT",
+      "tarball_sha256": "9678d9055619767c8a134033709e88a6e0a19600f3d3f2cda40acdfd75e7f212"
+    },
+    {
+      "package": "pako",
+      "version": "1.0.11",
+      "license": "(MIT AND Zlib)",
+      "tarball_sha256": "0d4028dc0352a740c30cbfd772917f2744986d42bfa0b06ec7642bffe7ad3941"
+    },
+    {
+      "package": "possible-typed-array-names",
+      "version": "1.0.0",
+      "license": "MIT",
+      "tarball_sha256": "36f999d2e86e4423100dcc35cae10e3260ea7bae0d3dec7eb2b90a46ead57945"
+    },
+    {
+      "package": "process",
+      "version": "0.11.10",
+      "license": "MIT",
+      "tarball_sha256": "7c10569b3c9cb056152ad630d40f9f4fcc321a0013c2bb8384f036aaa674e6bb"
+    },
+    {
+      "package": "process-nextick-args",
+      "version": "2.0.1",
+      "license": "MIT",
+      "tarball_sha256": "425bf8c725d23bc5ac76bcedd10d9cdbbd6354c7273dd7def44417cfbca8889b"
+    },
+    {
+      "package": "readable-stream",
+      "version": "2.3.8",
+      "license": "MIT",
+      "tarball_sha256": "1648613948f68ac9cbbe8f72a3f93a67ecdb862ffb57946a2c0bbb5a1479a532"
+    },
+    {
+      "package": "safe-buffer",
+      "version": "5.1.2",
+      "license": "MIT",
+      "tarball_sha256": "e09206c60fccafb952c854af7629cbb031a98d6da2e143fb3aa3c8a48402aa22"
+    },
+    {
+      "package": "sax",
+      "version": "1.2.4",
+      "license": "ISC",
+      "tarball_sha256": "adc442e017041cffca4d4418d06006ae5f17a9984557fa80c3a6cd8859021cf2"
+    },
+    {
+      "package": "set-function-length",
+      "version": "1.2.2",
+      "license": "MIT",
+      "tarball_sha256": "a339df70dfa3507a3fe2137464915212d69a9585d201c253b90f0c13fd952b4a"
+    },
+    {
+      "package": "setimmediate",
+      "version": "1.0.5",
+      "license": "MIT",
+      "tarball_sha256": "5cb9fc22698364ed42c02d6aa3dc50ffeafa68452ae84699672e3dfd74922c9e"
+    },
+    {
+      "package": "stream-browserify",
+      "version": "3.0.0",
+      "license": "MIT",
+      "tarball_sha256": "376fa4c0ffd38961cf23c210f8a8dbcc46b00862c1d1bce1bbc66f7ea9a433cf"
+    },
+    {
+      "package": "string_decoder",
+      "version": "1.1.1",
+      "license": "MIT",
+      "tarball_sha256": "af8262434508fa8292407f7fef4690d19eabb73387ca230b41f2a1155216963a"
+    },
+    {
+      "package": "util",
+      "version": "0.12.5",
+      "license": "MIT",
+      "tarball_sha256": "d3b9dac1449f7d6b6995355f5cc73179fec7b90bfa8967ff7d3c0654525ab282"
+    },
+    {
+      "package": "util-deprecate",
+      "version": "1.0.2",
+      "license": "MIT",
+      "tarball_sha256": "79a1de983c1b393180c47456d6b73caab278a00ea6e37d5c6675f2dcdec2a3e5"
+    },
+    {
+      "package": "which-typed-array",
+      "version": "1.1.19",
+      "license": "MIT",
+      "tarball_sha256": "aaccea91985a6e1731f84192d4682f474aea76f64a210982576e488732b0ad3f"
+    },
+    {
+      "package": "xml",
+      "version": "1.0.1",
+      "license": "MIT",
+      "tarball_sha256": "38032bd701fa20427b2ee31ed55e6761ce1a881a6eabcd90005ebe74ab04a623"
+    },
+    {
+      "package": "xml-js",
+      "version": "1.6.11",
+      "license": "MIT",
+      "tarball_sha256": "7fa22b957f335efef3ead84aaa8285e2f3b08dbfeee18f9f41021a1a0c584369"
+    }
+  ],
+  "readability": {
+    "version": "0.6.0",
+    "npm_tarball": "https://registry.npmjs.org/@mozilla/readability/-/readability-0.6.0.tgz",
+    "npm_integrity": "sha512-juG5VWh4qAivzTAeMzvY9xs9HY5rAcr2E4I7tiSSCokRFi7XIZCAu92ZkSTsIj1OPceCifL3cpfteP3pDT9/QQ==",
+    "supplied_bundle_sha256": "34dcab3d0832d0019f02990eed6b6124e029e8c32b9f0c6f2550544ff8dff174",
+    "match": "byte-for-byte npm package/Readability.js"
+  }
+}
