@@ -6,7 +6,8 @@
 
 - 嵌入正文的实际文章：Word 与正文 HTML 导出。去除侧栏组件后，正文逐字规范化比对一致；Word 含一张内嵌配图，正文 HTML 图片离线可显示，保留署名和原字体、字号、图片尺寸。
 - 普通 KM 文章：跳过两个空的编辑器容器，识别实际正文；自动加载与正文导出回归。
-- `tests/article-browser.html`：隐藏/空容器、KM 重复容器、署名保留、正文缺失、CID 图片/CSS、归档解析、脚本/事件清理、沙箱和渲染检查。
+- 完整 HTML / PDF：公开合成网页实际导出，保留导航、侧栏、表格和图片；PDF 保存为一张 1440.96 × 653.04 pt 网页尺寸页面，文字可提取。
+- `tests/article-browser.html` 共 17 项：隐藏/空容器、KM 重复容器、署名保留、正文缺失、CID 图片/CSS、归档解析、脚本/事件清理、沙箱和渲染检查。
 - Node 回归：PDF 消息与分块边界；资源流式上限、取消与过期引用。
 - 安装目录与 ZIP 运行时一致，静态语法、Manifest、资源引用、图标及 ZIP 完整性。
 
@@ -15,3 +16,5 @@
 范围限制：正文 HTML 和 Word 已支持识别到的嵌入正文。完整 HTML/PDF 中跨域框架仍有既有保存限制；动态脚本、虚拟列表、未加载资源及不能确认正文范围的其他网页仍需用户检查。
 
 English: Real embedded and ordinary KM articles were tested locally. Article text was compared with the source and Word/HTML outputs inspected. Public fixtures contain synthetic data only. Full-page HTML/PDF still have the existing cross-origin frame limitation.
+
+实现参考：[Chrome pageCapture API](https://developer.chrome.com/docs/extensions/reference/api/pageCapture)。

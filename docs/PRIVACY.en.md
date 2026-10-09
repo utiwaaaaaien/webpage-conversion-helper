@@ -1,6 +1,6 @@
 # Privacy policy
 
-Updated: 2026-10-08. Applies to version 2.3.0.
+Updated: 2026-10-09. Applies to version 2.4.0.
 
 [简体中文](PRIVACY.zh-CN.md) · [Home](../README.en.md)
 

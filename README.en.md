@@ -64,7 +64,7 @@ Conversion runs locally. The inspected extension code has no developer upload en
 
 Source and bundled dependencies are included; there is no build step or remotely downloaded runtime script. See [Contributing](CONTRIBUTING.md) for the layout and checks. Report issues through [GitHub Issues](https://github.com/utiwaaaaaien/webpage-conversion-helper/issues), with the extension version, page type, export format, and error details. Remove private content first.
 
-This GitHub release preserves the extension program files from the supplied package and adds publication documentation, licensing, and distribution materials. Release checks cover syntax, references, icons, documentation links, and package integrity; they do not establish successful conversion on every website.
+V2.4 fixes embedded article extraction and shares selection rules across Word and article HTML. Real KM exports, offline rendering, synthetic browser regressions, static package checks, and PDF/resource boundary tests passed. Website-specific limitations still apply.
 
 ## License
 
