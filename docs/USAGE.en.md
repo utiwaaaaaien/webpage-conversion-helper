@@ -46,3 +46,5 @@ PDF uses browser-width long pages, with segmentation for very long content. Actu
 | Source page changed | Reopen the extension on the intended page and start again |
 
 Private pages may produce exports containing personal content and ordinary form values. Inspect files before sharing. For [issue reports](https://github.com/utiwaaaaaien/webpage-conversion-helper/issues), include versions, format, and sanitized steps; remove credentials, internal URLs, and private content.
+
+V2.4 reuses optional pageCapture for embedded articles in Word/article HTML. The preview is local and script-free. Missing embedded documents or unloaded article images cause a clear error.

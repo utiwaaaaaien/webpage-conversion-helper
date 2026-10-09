@@ -1,5 +1,13 @@
 # 更新记录 / Changelog
 
+## 2.4.0 — 2026-10-09
+
+- 修复正文位于独立嵌入页面时，导出简介或外层组件却显示成功的问题。Word 与正文 HTML 复用已授权的 Chrome 页面归档读取正文、CSS、字体和配图。 / Recover embedded article documents and their cached styles/assets using the existing optional Chrome pageCapture permission.
+- 统一正文识别，跳过隐藏或空容器，优先明确文章区域；正文范围不明确、归档缺失或嵌入图片未加载时明确报错。 / Share article selection, skip hidden/empty containers, and reject missing or ambiguous embedded bodies.
+- 保留文章内署名，移除侧栏及社群组件；恢复普通网页字体默认值，避免扩展预览环境改变继承字号。 / Preserve article signatures, remove ancillary components, and normalize webpage font defaults in the inert archive preview.
+- 归档预览禁止脚本和网络加载，清理事件、表单提交与嵌套框架；转换后移除临时预览与引用。 / Disable scripts/network requests in archived previews and clean up temporary documents.
+- 无新增权限。新增公开、无业务数据的正文回归用例。 / No new permissions; add public synthetic regression fixtures.
+
 ## 2.3.0 — 2026-10-08
 
 此版本是安装包中的既有版本，本仓库首次公开分发。以下功能来自所提供的代码与版本说明；没有重建不可核实的历史版本。

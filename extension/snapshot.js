@@ -8,15 +8,19 @@
     reader.onerror = () => reject(Error('资源读取失败'));
     reader.readAsDataURL(blob);
   });
-  globalThis.capturePage = async function (mode = 'full') {
+  globalThis.capturePage = async function (mode = 'full', context = {}) {
+    const document=context.document||globalThis.document, location=new URL(context.url||document.URL);
+    const innerWidth=document.defaultView.innerWidth, innerHeight=document.defaultView.innerHeight;
+    const getComputedStyle=(node,pseudo)=>node.ownerDocument.defaultView.getComputedStyle(node,pseudo);
     const captureURL=location.href;
     let budget=performance.now(),visited=0;
     async function checkpoint(){
       if(++visited>30000)throw Error('页面元素过多，请使用正文 HTML 或缩小页面后重试');
       if(performance.now()-budget>12){await (globalThis.scheduler?.yield ? scheduler.yield() : new Promise(r=>setTimeout(r,0)));budget=performance.now();}
-      if(location.href!==captureURL)throw Error('原网页已切换，请重新转换');
+      if(!context.document&&globalThis.location.href!==captureURL)throw Error('原网页已切换，请重新转换');
     }
-    const article = mode === 'article' ? globalThis.findArticleElements() : null;
+    const article = mode === 'article' ? globalThis.findArticleElements(document,location.href) : null;
+    if(article && context.title)article.title=context.title;
     await Promise.race([document.fonts.ready, new Promise(r => setTimeout(r, 2000))]);
     const resources = [], nodes = new Map(), warnings = [], urlIds = new Map();
     const snapshot = crypto.randomUUID();

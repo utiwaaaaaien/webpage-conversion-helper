@@ -33,3 +33,5 @@
 ## 更新与联系
 
 数据处理方式变化时，将同步更新本文件与版本记录。维护账号为 [utiwaaaaaien](https://github.com/utiwaaaaaien)。一般隐私问题可通过 [GitHub Issues](https://github.com/utiwaaaaaien/webpage-conversion-helper/issues) 提出，请勿公开提交私人页面、凭据或敏感文件。安全漏洞请参照 [安全说明](../SECURITY.md)。
+
+V2.4 的 Word 与正文 HTML 可使用已授权的浏览器归档读取嵌入正文。首次未授权时会显示读取按钮；没有正文或配图未加载时不会输出不完整的嵌入文章。归档仅在本机处理，预览不运行原网页脚本。

@@ -8,7 +8,7 @@
 
 Use it to save articles, organize research, create editable documents, and read loaded webpages offline. Optional automatic scrolling helps load lazy images and content. The export screen reports missing resources and capture limits.
 
-Version **2.3.0** requires **Chrome 116 or later**. The extension interface is currently in **Simplified Chinese**; documentation is available in Chinese and English. Distribution is through GitHub downloads. There is no Chrome Web Store listing yet.
+Version **2.4.0** requires **Chrome 116 or later**. The extension interface is currently in **Simplified Chinese**; documentation is available in Chinese and English. Distribution is through GitHub downloads. There is no Chrome Web Store listing yet.
 
 ## Export formats
 
@@ -23,7 +23,7 @@ Word reflows content and does not promise pixel-perfect layout. Text inside imag
 
 ## Install
 
-1. Download `webpage-conversion-helper-2.3.0-chrome.zip` from [Releases](https://github.com/utiwaaaaaien/webpage-conversion-helper/releases/latest) and extract it.
+1. Download `webpage-conversion-helper-2.4.0-chrome.zip` from [Releases](https://github.com/utiwaaaaaien/webpage-conversion-helper/releases/latest) and extract it.
 2. Enter `chrome://extensions` in Chrome's address bar and enable **Developer mode**.
 3. Select **Load unpacked**, then select the extracted **`extension` directory**, which directly contains `manifest.json`.
 4. Pin **网页转换助手** to the toolbar and open a normal HTTP/HTTPS webpage.
@@ -69,3 +69,5 @@ This GitHub release preserves the extension program files from the supplied pack
 ## License
 
 Original project code and documentation use the [MIT License](LICENSE). Third-party components retain their own licenses; see [Third-party notices](THIRD_PARTY_NOTICES.md). Respect website terms and applicable rules when saving or reusing content.
+
+V2.4 fixes embedded article extraction for Word and article HTML, skips hidden or empty containers, and rejects uncertain article boundaries. The existing optional pageCapture permission is reused. Full-page HTML/PDF can still omit cross-origin frames. See [V2.4 validation](docs/VALIDATION-2.4.md).

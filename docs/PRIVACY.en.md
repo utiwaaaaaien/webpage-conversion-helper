@@ -33,3 +33,5 @@ Full-page HTML stores a static page and removes executable scripts, event handle
 ## Updates and contact
 
 Changes to data handling will be documented here and in the changelog. The maintainer account is [utiwaaaaaien](https://github.com/utiwaaaaaien). Use [GitHub Issues](https://github.com/utiwaaaaaien/webpage-conversion-helper/issues) for general privacy questions, without posting private pages, credentials, or sensitive files. For vulnerabilities, see the [security policy](../SECURITY.md).
+
+V2.4 reuses optional pageCapture for embedded articles in Word/article HTML. The preview is local and script-free. Missing embedded documents or unloaded article images cause a clear error.

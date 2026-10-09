@@ -3,7 +3,7 @@ const query = new URLSearchParams(location.search);
 const sourceTab = Number(query.get('tab'));
 const kind = ['docx','html','article','pdf'].includes(query.get('format')) ? query.get('format') : 'docx';
 const format = kind === 'docx' ? 'docx' : 'html';
-let page, nativeArchive, extraFonts = '', totalBytes = 0;
+let embeddedFrame, embeddedHint, page, nativeArchive, extraFonts = '', totalBytes = 0;
 const assets = new Map(), fontRequests = new Map();
 const MAX_TOTAL = 150 * 1024 * 1024, MAX_ASSET = 30 * 1024 * 1024;
 // Run network reads in the webpage's own world as well. Some authenticated sites
@@ -51,6 +51,7 @@ async function fetchAsset(url) {
   return new Promise((resolve,reject) => { const f = new FileReader(); f.onload = () => resolve(f.result); f.onerror = () => reject(Error('资源读取失败')); f.readAsDataURL(blob); });
 }
 async function inSource(resource) {
+  if(embeddedFrame)return format==='html'?capturePageAsset(page.snapshot,resource.id):captureArticleImage(page.snapshot,resource.id);
   if (format === 'html') {
     const [result] = await chrome.scripting.executeScript({target:{tabId:sourceTab},func:(s,id) => globalThis.capturePageAsset(s,id),args:[page.snapshot,resource.id]});
     return result?.result;
@@ -132,7 +133,7 @@ async function finish() {
       const html=buildOfflinePage(page,assets,extraFonts);
       if(kind==='pdf'){await openWebPDF(page,html);status('PDF 预览已打开，请在打印窗口中保存为 PDF。');details();return;}
       save(new Blob([html],{type:'text/html;charset=utf-8'}));
-      status((kind==='article'?'正文 HTML':'完整 HTML 网页')+' 已生成，请查看下载记录。\n资源：' + (page.resources.length - missing().length) + ' / ' + page.resources.length + ' 已保存。');
+      status((kind==='article'?'正文 HTML':'完整 HTML 网页')+' 已生成，请查看下载记录。\n资源：' + (page.resources.length - missing().length) + ' / ' + page.resources.length + ' 已保存。'+(page.embeddedImages?'\n嵌入正文配图：'+page.embeddedImages+' 张已内嵌。':''));
     }
     details();
   } catch (e) { status('转换失败：' + e.message + '\n请回到原网页重新转换。'); }
@@ -148,6 +149,11 @@ function offer() {
 $('continue').onclick = async () => {
   $('continue').disabled = true; $('save').hidden = true;
   try {
+    if($('continue').dataset.phase==='embedded'){
+      if(await chrome.permissions.request({permissions:['pageCapture']}))await convertEmbedded();
+      else status('未获得正文读取权限，未生成不完整文章。');
+      return;
+    }
     // Native capture is an optional permission, requested only on this button.
     if($('continue').dataset.phase==='hosts'){
       const origins=[...new Set([...missing().flatMap(resourceURLs),...fontRequests.keys()].filter(u=>/^https?:/.test(u)).map(u=>new URL(u).origin+'/*'))];
@@ -171,18 +177,55 @@ $('continue').onclick = async () => {
         details();$('continue').hidden=false;$('continue').textContent='补全缺失图片和字体';$('continue').dataset.phase='hosts';$('save').hidden=false;
       }else await finish();
     } else { status('未获得资源读取权限。可以保存已读取的内容。'); $('save').hidden = false; }
-  } catch (e) { status('资源补全失败：' + e.message); $('save').hidden = false; }
+  } catch (e) { status('资源补全失败：' + e.message); $('save').hidden = !page; }
   finally { $('continue').disabled = false; }
 };
 $('save').onclick = finish;
+async function convertEmbedded(){
+  try{
+    status('正在读取嵌入正文、样式和配图…');
+    nativeArchive=await captureNativeArchive(sourceTab,embeddedHint);
+    const prepared=await prepareEmbeddedArticle(nativeArchive,embeddedHint);
+    embeddedFrame=await renderEmbeddedArticle(prepared.html,embeddedHint);
+    if(embeddedHint.leadHTML){
+      const safe=buildOfflinePage({html:'<body>'+embeddedHint.leadHTML+'</body>',resources:[]},new Map());
+      const leadDoc=new DOMParser().parseFromString(safe,'text/html');
+      const root=findArticleElements(embeddedFrame.contentDocument,embeddedHint.frameURL).root;
+      root.prepend(...[...leadDoc.body.childNodes].map(node=>embeddedFrame.contentDocument.importNode(node,true)));
+    }
+    const context={document:embeddedFrame.contentDocument,url:embeddedHint.frameURL,title:embeddedHint.title};
+    page=format==='docx'?extractArticle(context):await capturePage('article',context);
+    page.url=embeddedHint.url;page.title=embeddedHint.title;page.embeddedImages=embeddedFrame.contentDocument.querySelectorAll('img').length;page.warnings.push(...prepared.warnings);
+    $('page-title').textContent=page.title;
+    await pool(page.resources,r=>loadResource(r));
+    await offer();
+  } finally {
+    if(page?.snapshot){globalThis.__atwPageSessions?.delete(page.snapshot);globalThis.__atwSessions?.delete(page.snapshot);}
+    embeddedFrame?.remove();embeddedFrame=null;
+  }
+}
 async function init() {
   $('heading').textContent = {docx:'网页转换成 Word',article:'保存正文 HTML',html:'保存完整 HTML 网页',pdf:'保存完整网页 PDF'}[kind];
   try {
     if (!sourceTab) throw Error('请从原网页点击插件打开');
     const [loading] = await chrome.scripting.executeScript({target:{tabId:sourceTab},func:()=>globalThis.webConvertLoader?.status()});
     if(['running','stopping'].includes(loading?.result?.phase))throw Error('网页仍在加载，请等待完成或停止加载后再保存');
+    if(kind==='docx'||kind==='article'){
+      await chrome.scripting.executeScript({target:{tabId:sourceTab},files:['article.js']});
+      const [hint]=await chrome.scripting.executeScript({target:{tabId:sourceTab},func:()=>globalThis.findEmbeddedArticle()});
+      embeddedHint=hint.result;
+      if(embeddedHint){
+        $('page-title').textContent=embeddedHint.title;
+        if(!await chrome.permissions.contains({permissions:['pageCapture']})){
+          status('文章正文位于嵌入页面，需要读取浏览器已加载的正文和配图。');
+          $('continue').hidden=false;$('continue').textContent='读取嵌入正文并转换';$('continue').dataset.phase='embedded';
+          return;
+        }
+        await convertEmbedded();return;
+      }
+    }
     if (format === 'docx') {
-      await chrome.scripting.executeScript({target:{tabId:sourceTab},files:['vendor/Readability.js','extract.js']});
+      await chrome.scripting.executeScript({target:{tabId:sourceTab},files:['vendor/Readability.js','article.js','extract.js']});
       const [r] = await chrome.scripting.executeScript({target:{tabId:sourceTab},func:() => globalThis.extractArticle()}); page = r.result;
     } else {
       await chrome.scripting.executeScript({target:{tabId:sourceTab},files:kind==='article'?['vendor/Readability.js','article.js','snapshot.js']:['snapshot.js']});

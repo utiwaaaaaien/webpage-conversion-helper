@@ -17,4 +17,7 @@ jobs:
         with:
           persist-credentials: false
       - name: Validate and build distribution
-        run: python3 scripts/package.py --output dist
+        run: |
+          python3 scripts/package.py --output dist
+          node tests/pdf-messages.test.mjs
+          node tests/source-assets.test.mjs

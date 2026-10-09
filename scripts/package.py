@@ -19,7 +19,7 @@ def main():
     with zipfile.ZipFile(target, 'w', compression=zipfile.ZIP_DEFLATED) as archive:
         for path in paths:
             rel = path.relative_to(ROOT).as_posix()
-            info = zipfile.ZipInfo(rel, date_time=(2026, 10, 8, 0, 0, 0))
+            info = zipfile.ZipInfo(rel, date_time=(2026, 10, 9, 0, 0, 0))
             info.compress_type = zipfile.ZIP_DEFLATED
             info.external_attr = 0o100644 << 16
             archive.writestr(info, path.read_bytes())
