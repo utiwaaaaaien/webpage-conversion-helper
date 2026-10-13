@@ -8,7 +8,7 @@
 
 适合保存文章、整理研究资料、制作可编辑文档，以及离线阅读已加载的网页。支持自动滚动加载图片和内容，转换时显示缺失资源与加载限制。
 
-当前版本 **2.4.0**，要求 **Chrome 116 或更高版本**。插件界面为**简体中文**；本仓库提供中英文说明。目前通过 GitHub 安装包分发，尚未发布到 Chrome 网上应用店。
+当前版本 **2.5.0**，要求 **Chrome 116 或更高版本**。插件界面为**简体中文**；本仓库提供中英文说明。目前通过 GitHub 安装包分发，尚未发布到 Chrome 网上应用店。
 
 ## 四种保存方式
 
@@ -23,7 +23,7 @@ Word 会重新排版，不保证与网页逐像素一致。PDF 中原本属于�
 
 ## 安装
 
-1. 从 [Releases](https://github.com/utiwaaaaaien/webpage-conversion-helper/releases/latest) 下载 `webpage-conversion-helper-2.4.0-chrome.zip` 并解压。
+1. 从 [Releases](https://github.com/utiwaaaaaien/webpage-conversion-helper/releases/latest) 下载 `webpage-conversion-helper-2.5.0-chrome.zip` 并解压。
 2. 在 Chrome 地址栏输入 `chrome://extensions`，开启「开发者模式」。
 3. 点击「加载已解压的扩展程序」，选择解压后的 **`extension` 文件夹**，其中应直接包含 `manifest.json`。
 4. 将「网页转换助手」固定到工具栏，打开一个普通 HTTP/HTTPS 网页。
@@ -65,7 +65,7 @@ PDF 会打开原生打印窗口。选择「另存为 PDF」、边距「无」，
 
 源码和依赖随仓库提供，无需构建或在线下载运行脚本。目录与验证步骤见 [贡献指南](CONTRIBUTING.md)。反馈请提交 [Issue](https://github.com/utiwaaaaaien/webpage-conversion-helper/issues)，注明版本、网页类型、导出格式和错误信息，并移除私人内容。
 
-V2.4 修复正文位于嵌入页面时误读外层内容的问题，并统一 Word 与正文 HTML 的识别规则。验证包含实际 KM 导出、文字与图片对照、离线渲染及公开回归用例；其他网站仍需按导出提示检查。
+V2.5 修复公式较多的长文因重复保存样式导致 HTML/PDF 转换失败的问题，复用相同样式，并显示具体转换错误。验证范围见 [V2.5 验证记录](docs/VALIDATION-2.5.md)；其他网站仍需按导出提示检查。
 
 ## 许可证
 

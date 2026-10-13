@@ -1,6 +1,6 @@
 /* Runs in the page's isolated world. Closing the popup does not stop the job. */
 (() => {
-  if (globalThis.webConvertLoader?.version === '2.3') return;
+  if (globalThis.webConvertLoader?.version === '2.5') return;
   let state = {phase:'idle',steps:0,loaded:0,total:0,warnings:[]}, job;
   const limits = {milliseconds:120000,steps:600,height:200000,containers:24,growth:40};
   const status = () => ({...state,warnings:[...state.warnings]});
@@ -131,7 +131,7 @@
     }
   }
   globalThis.webConvertLoader={
-    version:'2.3',status,
+    version:'2.5',status,
     start(){if(job)return status();state={phase:'running',steps:0,loaded:0,total:0,warnings:[],elapsed:0};job={abort:new AbortController()};void run(job);return status();},
     stop(){if(job){state.phase='stopping';job.abort.abort(new Error('stop'));}return status();}
   };

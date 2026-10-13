@@ -212,8 +212,9 @@ async function init() {
     if(['running','stopping'].includes(loading?.result?.phase))throw Error('网页仍在加载，请等待完成或停止加载后再保存');
     if(kind==='docx'||kind==='article'){
       await chrome.scripting.executeScript({target:{tabId:sourceTab},files:['article.js']});
-      const [hint]=await chrome.scripting.executeScript({target:{tabId:sourceTab},func:()=>globalThis.findEmbeddedArticle()});
-      embeddedHint=hint.result;
+      const [hint]=await chrome.scripting.executeScript({target:{tabId:sourceTab},func:()=>{try{return {value:globalThis.findEmbeddedArticle()};}catch(e){return {error:e.message};}}});
+      if(hint?.result?.error)throw Error(hint.result.error);
+      embeddedHint=hint?.result?.value;
       if(embeddedHint){
         $('page-title').textContent=embeddedHint.title;
         if(!await chrome.permissions.contains({permissions:['pageCapture']})){
@@ -226,10 +227,12 @@ async function init() {
     }
     if (format === 'docx') {
       await chrome.scripting.executeScript({target:{tabId:sourceTab},files:['vendor/Readability.js','article.js','extract.js']});
-      const [r] = await chrome.scripting.executeScript({target:{tabId:sourceTab},func:() => globalThis.extractArticle()}); page = r.result;
+      const [r] = await chrome.scripting.executeScript({target:{tabId:sourceTab},func:() => {try{return {value:globalThis.extractArticle()};}catch(e){return {error:e.message};}}});
+      if(r?.result?.error)throw Error(r.result.error);page=r?.result?.value;
     } else {
       await chrome.scripting.executeScript({target:{tabId:sourceTab},files:kind==='article'?['vendor/Readability.js','article.js','snapshot.js']:['snapshot.js']});
-      const [r] = await chrome.scripting.executeScript({target:{tabId:sourceTab},func:mode => globalThis.capturePage(mode),args:[kind==='article'?'article':'full']}); page = r.result;
+      const [r] = await chrome.scripting.executeScript({target:{tabId:sourceTab},func:async mode => {try{return {value:await globalThis.capturePage(mode)};}catch(e){return {error:e.message};}},args:[kind==='article'?'article':'full']});
+      if(r?.result?.error)throw Error(r.result.error);page=r?.result?.value;
     }
     if (!page) throw Error('未能读取页面');
     $('page-title').textContent = page.title;

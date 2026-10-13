@@ -1,5 +1,13 @@
 # 更新记录 / Changelog
 
+## 2.5.0 — 2026-10-13
+
+- 修复含大量公式与 SVG 的长文章触发重复样式大小限制，导致正文 HTML、完整 HTML 和 PDF 无法转换的问题。相同计算样式和伪元素样式在离线文件中复用，仍保留原字号、颜色与尺寸。
+- 转换页显示源页面捕获的具体错误；失败后可以重新转换。
+- 保留同源嵌套页面的独立样式、PDF 表单显示样式，并更新加载器版本标记。
+- 新增长文、共享样式、伪元素及嵌套页面回归；详见 [验证记录](docs/VALIDATION-2.5.md)。
+- No new permissions. Shared computed styles fix large formula-heavy HTML/PDF exports, and capture errors are reported explicitly.
+
 ## 2.4.0 — 2026-10-09
 
 - 修复正文位于独立嵌入页面时，导出简介或外层组件却显示成功的问题。Word 与正文 HTML 复用已授权的 Chrome 页面归档读取正文、CSS、字体和配图。 / Recover embedded article documents and their cached styles/assets using the existing optional Chrome pageCapture permission.

@@ -29,5 +29,19 @@ document.getElementById('run').onclick=async()=>{
   d=await doc('<div class="iframe-body">正文正在加载</div>');failed=false;try{findEmbeddedArticle(d,'https://km.woa.com/articles/test');}catch{failed=true;}assert('KM 嵌入正文未加载明确失败',failed);
   const raw='MIME-Version: 1.0\r\nContent-Type: multipart/related; boundary="test"\r\n\r\n--test\r\nContent-Type: text/html; charset=utf-8\r\nContent-Location: https://frame.example.test/story/\r\nContent-Transfer-Encoding: base64\r\n\r\n'+btoa('<article>test</article>')+'\r\n--test--\r\n';
   assert('MHTML HTML 文档解析',parsePageArchive(new TextEncoder().encode(raw).buffer).documents[0].text==='<article>test</article>');
+  d=await doc('<style>article span{color:rgb(12,34,56);font-size:17px}article span:before{content:"§";color:rgb(90,80,70)}</style><article>'+('<span>长文正文 </span>'.repeat(5500))+'</article><aside>推荐内容</aside>');
+  const longPage=await capturePage('article',{document:d,url:'https://example.test/long'});
+  assert('长文共享样式避免重复膨胀',longPage.html.length<3*1024*1024);
+  const longDoc=await doc(buildOfflinePage(longPage,new Map()));
+  assert('长文首尾与正文边界',longDoc.querySelectorAll('article span').length===5500&&!longDoc.body.textContent.includes('推荐内容'));
+  const last=longDoc.querySelector('article span:last-child'),win=longDoc.defaultView;
+  assert('共享样式保留字体和颜色',win.getComputedStyle(last).fontSize==='17px'&&win.getComputedStyle(last).color==='rgb(12, 34, 56)');
+  assert('共享伪元素保留内容和颜色',win.getComputedStyle(last,'::before').content==='"§"'&&win.getComputedStyle(last,'::before').color==='rgb(90, 80, 70)');
+  d=await doc('<article><p>'+text+'</p><iframe srcdoc="&lt;style&gt;p:before{content:&#39;子页&#39;;color:rgb(23,45,67)}&lt;/style&gt;&lt;p&gt;嵌入正文&lt;/p&gt;"></iframe></article>');
+  await new Promise(r=>d.querySelector('iframe').contentDocument.readyState==='complete'?r():d.querySelector('iframe').addEventListener('load',r,{once:true}));
+  const nestedPage=await capturePage('full',{document:d,url:'https://example.test/nested'}),nestedDoc=await doc(buildOfflinePage(nestedPage,new Map()));
+  const nestedFrame=nestedDoc.querySelector('iframe');
+  // Exported frames deliberately have an opaque origin; inspect their saved source.
+  assert('嵌套页面保留独立样式表',nestedFrame.srcdoc.includes('data-atw-before')&&nestedFrame.srcdoc.includes('rgb(23, 45, 67)'));
  }catch(e){results.push('FAIL '+e.message);}finally{frames.forEach(f=>f.remove());document.getElementById('results').textContent=results.join('\n');}
 };

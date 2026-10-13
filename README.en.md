@@ -8,7 +8,7 @@
 
 Use it to save articles, organize research, create editable documents, and read loaded webpages offline. Optional automatic scrolling helps load lazy images and content. The export screen reports missing resources and capture limits.
 
-Version **2.4.0** requires **Chrome 116 or later**. The extension interface is currently in **Simplified Chinese**; documentation is available in Chinese and English. Distribution is through GitHub downloads. There is no Chrome Web Store listing yet.
+Version **2.5.0** requires **Chrome 116 or later**. The extension interface is currently in **Simplified Chinese**; documentation is available in Chinese and English. Distribution is through GitHub downloads. There is no Chrome Web Store listing yet.
 
 ## Export formats
 
@@ -23,7 +23,7 @@ Word reflows content and does not promise pixel-perfect layout. Text inside imag
 
 ## Install
 
-1. Download `webpage-conversion-helper-2.4.0-chrome.zip` from [Releases](https://github.com/utiwaaaaaien/webpage-conversion-helper/releases/latest) and extract it.
+1. Download `webpage-conversion-helper-2.5.0-chrome.zip` from [Releases](https://github.com/utiwaaaaaien/webpage-conversion-helper/releases/latest) and extract it.
 2. Enter `chrome://extensions` in Chrome's address bar and enable **Developer mode**.
 3. Select **Load unpacked**, then select the extracted **`extension` directory**, which directly contains `manifest.json`.
 4. Pin **网页转换助手** to the toolbar and open a normal HTTP/HTTPS webpage.
@@ -64,7 +64,7 @@ Conversion runs locally. The inspected extension code has no developer upload en
 
 Source and bundled dependencies are included; there is no build step or remotely downloaded runtime script. See [Contributing](CONTRIBUTING.md) for the layout and checks. Report issues through [GitHub Issues](https://github.com/utiwaaaaaien/webpage-conversion-helper/issues), with the extension version, page type, export format, and error details. Remove private content first.
 
-V2.4 fixes embedded article extraction and shares selection rules across Word and article HTML. Real KM exports, offline rendering, synthetic browser regressions, static package checks, and PDF/resource boundary tests passed. Website-specific limitations still apply.
+V2.5 fixes HTML/PDF capture of long formula-heavy articles by sharing identical computed styles. Capture failures now show their specific cause. See [V2.5 validation](docs/VALIDATION-2.5.md). Website-specific limitations still apply.
 
 ## License
 

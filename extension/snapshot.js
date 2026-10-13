@@ -24,8 +24,9 @@
     await Promise.race([document.fonts.ready, new Promise(r => setTimeout(r, 2000))]);
     const resources = [], nodes = new Map(), warnings = [], urlIds = new Map();
     const snapshot = crypto.randomUUID();
-    const pseudoRules = [], fontRules = [], sheets = new Set(), usedFonts = new Set();
+    const sharedStyles = new Map(), fontRules = [], sheets = new Set(), usedFonts = new Set();
     let seq = 0, cssCharacters=0;
+    const sharedCSS=()=>[...sharedStyles.values()].map(({id,css,pseudo})=>'['+(pseudo==='::before'?'data-atw-before':pseudo==='::after'?'data-atw-after':'data-atw-css')+'="'+id+'"]'+pseudo+'{'+css+'}').join('\n');
     function asset(value, kind = 'asset', node) {
       if (!value || !String(value).trim()) return '';
       let url;
@@ -48,23 +49,35 @@
       });
     }
     function style(source, target, pseudo) {
-      const computed = getComputedStyle(source, pseudo), values = [];
+      const computed = getComputedStyle(source, pseudo), declaration = document.createElement('span').style;
       for (const font of computed.fontFamily.split(",")) usedFonts.add(font.trim().replace(/^[\'"]|[\'"]$/g, "").toLowerCase());
       for (const key of computed) {
         if (key.startsWith('--') || key === 'animation' || key.startsWith('animation-') || key === 'transition' || key.startsWith('transition-')) continue;
         const raw = computed.getPropertyValue(key);
         const value = urls(raw);
-        cssCharacters+=key.length+value.length+16;
-        if(cssCharacters>48*1024*1024)throw Error('页面样式过大，请使用正文 HTML 后重试');
-        if (target) target.style.setProperty(key, value, 'important');
-        else values.push(key + ':' + value + ' !important');
+        declaration.setProperty(key, value, 'important');
       }
       if (target) {
-        target.style.setProperty('animation', 'none', 'important');
-        target.style.setProperty('transition', 'none', 'important');
-        target.style.setProperty('content-visibility', 'visible', 'important');
+        declaration.setProperty('animation', 'none', 'important');
+        declaration.setProperty('transition', 'none', 'important');
+        declaration.setProperty('content-visibility', 'visible', 'important');
       }
-      return values.join(';');
+      const css=declaration.cssText;
+      // A nested document cannot inherit the outer snapshot's stylesheet.
+      if(source.ownerDocument!==document && target){
+        cssCharacters+=css.length;target.style.cssText=css;
+      }else{
+        const key=(pseudo||'')+'\n'+css;
+        if(!sharedStyles.has(key)){
+          sharedStyles.set(key,{id:String(sharedStyles.size),css,pseudo:pseudo||''});
+          cssCharacters+=css.length+80;
+        }
+        const entry=sharedStyles.get(key);
+        if(target)target.setAttribute('data-atw-css',entry.id);
+        if(cssCharacters>48*1024*1024)throw Error('页面独立样式过多，请缩小页面范围后重试');
+        return entry.id;
+      }
+      if(cssCharacters>48*1024*1024)throw Error('页面独立样式过多，请缩小页面范围后重试');
     }
     function stylesheet(sheet) {
       try {
@@ -97,10 +110,14 @@
         try {
           if (!source.contentDocument?.documentElement) throw Error();
           const inner = await clone(source.contentDocument.documentElement);
+          const innerStyles=source.contentDocument.createElement('style');
+          innerStyles.textContent=sharedCSS().replace(/</g,'\\3c ');
+          inner.querySelector('head')?.append(innerStyles);
           target.srcdoc = '<!doctype html>' + inner.outerHTML;
         } catch(e) { if(e?.message)throw e;warnings.push('跨域嵌入页面无法离线复刻'); target.srcdoc = '<p>嵌入内容请在原网页查看</p>'; }
       } else target = source.cloneNode(false);
       for (const attr of [...target.attributes]) {
+        if (['data-atw-css','data-atw-before','data-atw-after'].includes(attr.name)) target.removeAttribute(attr.name);
         if (/^on/i.test(attr.name) || ['nonce','integrity','crossorigin','autofocus','contenteditable','srcset','sizes','ping','action','formaction','srcdoc'].includes(attr.name) && tag !== 'iframe') target.removeAttribute(attr.name);
         if (['src','href','xlink:href'].includes(attr.name) && /^\s*javascript:/i.test(attr.value)) target.removeAttribute(attr.name);
       }
@@ -110,7 +127,7 @@
       target.setAttribute('data-atw-node', id);
       for (const pseudo of ['::before','::after']) {
         const s = getComputedStyle(source, pseudo);
-        if (s.content && !['none','normal'].includes(s.content)) pseudoRules.push('[data-atw-node="' + id + '"]' + pseudo + '{' + style(source, null, pseudo) + '}');
+        if (s.content && !['none','normal'].includes(s.content)) target.setAttribute(pseudo==='::before'?'data-atw-before':'data-atw-after',style(source,null,pseudo));
       }
       if (tag === 'img') {
         const src = source.currentSrc || source.getAttribute('src') || source.getAttribute('data-src') || source.getAttribute('data-original');
@@ -191,7 +208,7 @@
       const text=r.text.replace(/src\s*:[^;}]+/gi,src=>{const entries=src.match(/url\([^)]*\)(?:\s*format\([^)]*\))?/gi)||[];const choice=entries.find(x=>/woff2/i.test(x))||entries.find(x=>/woff/i.test(x))||entries[0];return choice?'src:'+choice:src;});
       return urls(text,r.base);
     });
-    css.textContent = (activeFonts.join('\n') + '\n' + pseudoRules.join('\n')).replace(/</g,'\\3c '); head.append(css);
+    css.textContent = (activeFonts.join('\n') + '\n' + sharedCSS()).replace(/</g,'\\3c '); head.append(css);
     // Keep the original viewport width, avoiding unexpected reflow of the saved snapshot.
     root.style.setProperty('min-width', (articleWidth || innerWidth) + 'px', 'important');
     const html='<!doctype html>\n'+root.outerHTML;

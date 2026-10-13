@@ -27,6 +27,7 @@ async function prepare(){
     for(const select of [...doc.querySelectorAll('select')]){
       const value=doc.createElement('span'),rect=select.getBoundingClientRect();
       value.style.cssText=select.style.cssText;
+      if(select.hasAttribute('data-atw-css'))value.setAttribute('data-atw-css',select.getAttribute('data-atw-css'));
       value.textContent=[...select.selectedOptions].map(option=>option.textContent).join(', ');
       for(const [key,text] of Object.entries({display:'inline-block',width:rect.width+'px',height:rect.height+'px','box-sizing':'border-box'}))value.style.setProperty(key,text,'important');
       select.replaceWith(value);
