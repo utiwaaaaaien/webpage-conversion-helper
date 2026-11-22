@@ -66,8 +66,10 @@ Source and bundled dependencies are included; there is no build step or remotely
 
 V2.5 fixes HTML/PDF capture of long formula-heavy articles by sharing identical computed styles. Capture failures now show their specific cause. See [V2.5 validation](docs/VALIDATION-2.5.md). Website-specific limitations still apply.
 
+## Earlier fixes
+
+V2.4 fixes embedded article extraction for Word and article HTML, skips hidden or empty containers, and rejects uncertain article boundaries. The existing optional pageCapture permission is reused. Full-page HTML/PDF can still omit cross-origin frames. See [V2.4 validation](docs/VALIDATION-2.4.md).
+
 ## License
 
 Original project code and documentation use the [MIT License](LICENSE). Third-party components retain their own licenses; see [Third-party notices](THIRD_PARTY_NOTICES.md). Respect website terms and applicable rules when saving or reusing content.
-
-V2.4 fixes embedded article extraction for Word and article HTML, skips hidden or empty containers, and rejects uncertain article boundaries. The existing optional pageCapture permission is reused. Full-page HTML/PDF can still omit cross-origin frames. See [V2.4 validation](docs/VALIDATION-2.4.md).
